@@ -12,7 +12,7 @@ gem 'handlebars_assets'
 gem 'devise'
 gem 'pg'
 gem 'newrelic_rpm'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 gem 'puma'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
