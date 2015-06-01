@@ -1,3 +1,5 @@
+ruby '2.2.2'
+
 source 'https://rubygems.org'
 
 gem 'bundler', '>= 1.8.4'
@@ -10,6 +12,7 @@ gem 'handlebars_assets'
 gem 'devise'
 gem 'pg'
 gem 'newrelic_rpm'
+gem 'rails_12factor'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
