@@ -9,6 +9,7 @@ end
 gem 'handlebars_assets'
 gem 'devise'
 gem 'pg'
+gem 'newrelic_rpm'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
