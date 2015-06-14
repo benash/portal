@@ -12,6 +12,11 @@ UserRegistration = Backbone.Model.extend
   toJSON: ->
     user: @attributes
 
+ErrorList = Backbone.Model.extend()
+
+ErrorView = Mn.ItemView.extend
+  template: HandlebarsTemplates['error']
+
 RootView = Mn.LayoutView.extend
   el: 'body'
   template: HandlebarsTemplates['root']
@@ -19,12 +24,20 @@ RootView = Mn.LayoutView.extend
   events:
     'submit form': 'signup'
 
+  regions:
+    'error': '.error-region'
+
   initialize: ->
     @model = new UserRegistration()
     @modelBinder = new Backbone.ModelBinder()
 
   onRender: ->
     @modelBinder.bind(@model, @el)
+
+  displayErrors: (errors) ->
+    errorList = new ErrorList(errors: errors)
+    errorView = new ErrorView(model: errorList)
+    @showChildView('error', errorView)
 
   signup: (e) ->
 
@@ -38,14 +51,9 @@ RootView = Mn.LayoutView.extend
         self.currentUser = new User(response)
 #        BD.vent.trigger("authentication:logged_in")
 
-#      error: (userSession, response) ->
-#        result = $.parseJSON(response.responseText)
-#        el.find('form').prepend(BD.Helpers.Notifications.error("Unable to complete signup."))
-#        _(result.errors).each (errors,field) ->
-#          $('#'+field+'_group').addClass('error')
-#          _(errors).each (error, i) ->
-#            $('#'+field+'_group .controls').append(BD.Helpers.FormHelpers.fieldHelp(error))
-#        el.find('input.btn-primary').button('reset')
+      error: (userSession, response) =>
+        result = $.parseJSON(response.responseText)
+        @displayErrors(result.errors)
 
 ready = ->
 
