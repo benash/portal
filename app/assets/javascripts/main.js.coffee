@@ -1,8 +1,8 @@
+currentUser = null
 User = Backbone.Model.extend({})
 
 UserRegistration = Backbone.Model.extend
   url: '/users'
-  paramRoot: 'user'
 
   defaults:
     'email': ''
@@ -12,14 +12,24 @@ UserRegistration = Backbone.Model.extend
   toJSON: ->
     user: @attributes
 
+vent = new Backbone.Wreqr.EventAggregator()
+
+vent.on 'signed-in',(userJson) ->
+  debugger
+  currentUser = new User(userJson)
+  app.rootView.showChildView('main', new MainView(currentUser: currentUser))
+
+vent.on 'signed-out', () ->
+  currentUser = null
+  app.rootView.showChildView('main', new UnauthenticatedView())
+
 ErrorList = Backbone.Model.extend()
 
 ErrorView = Mn.ItemView.extend
   template: HandlebarsTemplates['error']
 
-RootView = Mn.LayoutView.extend
-  el: 'body'
-  template: HandlebarsTemplates['root']
+SignupView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['signup']
 
   events:
     'submit form': 'signup'
@@ -40,20 +50,92 @@ RootView = Mn.LayoutView.extend
     @showChildView('error', errorView)
 
   signup: (e) ->
-
-    self = this
-    el = $(@el)
-
     e.preventDefault()
 
     @model.save @model.attributes,
       success: (userSession, response) ->
-        self.currentUser = new User(response)
-#        BD.vent.trigger("authentication:logged_in")
+        vent.trigger('signed-in', response)
 
       error: (userSession, response) =>
         result = $.parseJSON(response.responseText)
         @displayErrors(result.errors)
+
+UserSession = Backbone.Model.extend
+  url: '/users/sign_in',
+
+  toJSON: ->
+    user: @attributes
+
+  defaults:
+    'email': '',
+    'password': ''
+
+SigninView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['signin']
+
+  events:
+    'submit .app-signin': 'signin'
+
+  regions:
+    'error': '.error-region'
+
+  initialize: ->
+    @model = new UserSession()
+    @modelBinder = new Backbone.ModelBinder()
+
+  onRender: ->
+    @modelBinder.bind(@model, @el)
+
+  displayErrors: (errors) ->
+    errorList = new ErrorList(errors: errors)
+    errorView = new ErrorView(model: errorList)
+    @showChildView('error', errorView)
+
+  signin: (e) ->
+    e.preventDefault()
+
+    @model.save @model.attributes,
+      success: (userSession, response) ->
+        vent.trigger('signed-in', response)
+
+      error: (userSession, response) =>
+        result = $.parseJSON(response.responseText)
+        @displayErrors(result.errors)
+
+UnauthenticatedView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['unauthenticated']
+
+  regions:
+    'signup': '.app-signup-region'
+    'signin': '.app-signin-region'
+
+  onRender: ->
+    @showChildView('signup', new SignupView())
+    @showChildView('signin', new SigninView())
+
+RootView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['root']
+  regions:
+    'main': '.app-main-region'
+
+MainView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['main']
+  events:
+    'submit .app-signout': 'signout'
+
+  initialize: (opts) ->
+    @currentUser = opts.currentUser
+
+  serializeData: ->
+    @currentUser.toJSON()
+
+  signout: (e) ->
+    e.preventDefault()
+
+    $.ajax '/users/sign_out',
+      method: 'DELETE'
+      success: (userSession, response) ->
+        vent.trigger('signed-out')
 
 ready = ->
 
@@ -64,8 +146,13 @@ ready = ->
 
   app.start()
 
-  app.rootView = new RootView()
+  app.rootView = new RootView(el: 'body')
   app.rootView.render()
+
+  if currentUserJson
+    vent.trigger('signed-in', currentUserJson)
+  else
+    vent.trigger('signed-out')
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

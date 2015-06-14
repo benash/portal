@@ -3,10 +3,18 @@
 <head>
   <title>Portal</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<script type="text/javascript">
+  var currentUserJson = null;
+  <% if signed_in? -%>
+    currentUserJson = <%= current_user.to_json.html_safe %>;
+  <% end -%>
+</script>
 
 <%= yield %>
 
