@@ -1,0 +1,142 @@
+$gth-blue: #00acc5;
+$gth-orange: #cf5800;
+$gth-light-orange: #e6ac87;
+$gth-light-grey: #d7d7d7;
+$gth-medium-grey: #b7b7b7;
+$gth-dark-grey: #959595;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.unauthenticated-view-container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.signin {
+  height: 60px;
+  margin-bottom: 12px;
+
+  .logo {
+    height: 100%;
+  }
+
+  fieldset {
+    display: inline;
+    border: 0;
+    float: right;
+    font-size: 16px;
+
+    span {
+      display: inline-block;
+      margin-right: 12px;
+
+      label {
+        display: block;
+      }
+
+      input, button {
+        box-shadow: inset 0 1px 3px #ddd;
+        padding: .5em .6em;
+        border-radius: 4px;
+      }
+
+      input {
+        height: 16px;
+        width: 120px;
+        border: 1px solid #ccc;
+        &:focus {
+          outline-color: $gth-light-orange;
+        }
+      }
+
+      button {
+        background-color: $gth-blue;
+        color: white;
+        border: 0;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.box {
+  background-image: url(image_path('background.jpg'));
+  padding: 20px 30px;
+  text-align: center;
+  margin-bottom: 30px;
+
+  .intro-text {
+    color: white;
+    font-family: 'Sanchez', serif;
+    font-size: 27px;
+    margin-bottom: 14px;
+  }
+
+  .inner-box {
+    display: inline-block;
+    text-align: center;
+    background-color: rgba(200, 200, 200, 0.6);
+    border-radius: 6px;
+
+    h3 {
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      background-color: $gth-blue;
+      color: white;
+      font-weight: normal;
+      font-size: 19px;
+      padding: 3px;
+      margin: 0;
+    }
+
+    .signup {
+
+      text-align: right;
+
+      fieldset {
+        border: 0;
+        font-size: 16px;
+
+        div {
+          margin-right: 12px;
+          margin-bottom: 9px;
+
+          label {
+            margin-right: 10px;
+            vertical-align: middle;
+          }
+
+          input, button {
+            box-shadow: inset 0 1px 3px #ddd;
+            padding: .5em .6em;
+            border-radius: 4px;
+          }
+
+          input {
+            height: 16px;
+            width: 120px;
+            border: 1px solid #ccc;
+          }
+
+          button {
+            background-color: $gth-orange;
+            color: white;
+            border: 0;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+footer {
+  text-align: center;
+  color: $gth-dark-grey;
+  font-size: 18px;
+  font-weight: lighter;
+  max-width: 482px;
+  margin: 0 auto;
+}

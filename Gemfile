@@ -8,6 +8,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-marionette'
 end
 
+gem 'slim-rails'
 gem 'handlebars_assets'
 gem 'devise'
 gem 'pg'

@@ -15,7 +15,6 @@ UserRegistration = Backbone.Model.extend
 vent = new Backbone.Wreqr.EventAggregator()
 
 vent.on 'signed-in',(userJson) ->
-  debugger
   currentUser = new User(userJson)
   app.rootView.showChildView('main', new MainView(currentUser: currentUser))
 
@@ -29,6 +28,7 @@ ErrorView = Mn.ItemView.extend
   template: HandlebarsTemplates['error']
 
 SignupView = Mn.LayoutView.extend
+  className: 'box'
   template: HandlebarsTemplates['signup']
 
   events:
@@ -71,10 +71,13 @@ UserSession = Backbone.Model.extend
     'password': ''
 
 SigninView = Mn.LayoutView.extend
+  tagName: 'form'
+  className: 'signin app-signin'
+
   template: HandlebarsTemplates['signin']
 
   events:
-    'submit .app-signin': 'signin'
+    'submit': 'signin'
 
   regions:
     'error': '.error-region'
@@ -102,16 +105,25 @@ SigninView = Mn.LayoutView.extend
         result = $.parseJSON(response.responseText)
         @displayErrors(result.errors)
 
+FooterView = Mn.LayoutView.extend
+
+  tagName: 'footer'
+
+  template: HandlebarsTemplates['footer']
+
 UnauthenticatedView = Mn.LayoutView.extend
+  className: 'unauthenticated-view-container'
   template: HandlebarsTemplates['unauthenticated']
 
   regions:
     'signup': '.app-signup-region'
     'signin': '.app-signin-region'
+    'footer': '.app-footer-region'
 
   onRender: ->
     @showChildView('signup', new SignupView())
     @showChildView('signin', new SigninView())
+    @showChildView('footer', new FooterView())
 
 RootView = Mn.LayoutView.extend
   template: HandlebarsTemplates['root']
