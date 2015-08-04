@@ -1,0 +1,15 @@
+doctype html
+html lang="en"
+  head
+    meta content=('text/html; charset=utf-8') http-equiv="Content-Type"
+    title Portal
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    link href="http://fonts.googleapis.com/css?family=Sanchez|Open+Sans:400,300" rel="stylesheet" type="text/css"
+    = csrf_meta_tags
+  body
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    javascript:
+      | var currentUserJson = null;
+      | if signed_in?
+      |   currentUserJson = #{current_user.to_json.html_safe};
+    = yield

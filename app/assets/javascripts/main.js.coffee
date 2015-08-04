@@ -25,6 +25,8 @@ vent.on 'signed-out', () ->
 ErrorList = Backbone.Model.extend()
 
 ErrorView = Mn.ItemView.extend
+  tagName: 'ul'
+  className: 'errors'
   template: HandlebarsTemplates['error']
 
 SignupView = Mn.LayoutView.extend

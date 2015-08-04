@@ -27,10 +27,12 @@ body {
     border: 0;
     float: right;
     font-size: 16px;
+    padding: 0;
+    margin: 0;
 
     span {
       display: inline-block;
-      margin-right: 12px;
+      margin-left: 12px;
 
       label {
         display: block;
@@ -43,8 +45,8 @@ body {
       }
 
       input {
-        height: 16px;
-        width: 120px;
+        font-size: 14px;
+        padding: 8px;
         border: 1px solid #ccc;
         &:focus {
           outline-color: $gth-light-orange;
@@ -56,6 +58,7 @@ body {
         color: white;
         border: 0;
         cursor: pointer;
+        font-size: 14px;
       }
     }
   }
@@ -89,6 +92,7 @@ body {
       font-size: 19px;
       padding: 3px;
       margin: 0;
+      margin-bottom: 6px;
     }
 
     .signup {
@@ -98,9 +102,9 @@ body {
       fieldset {
         border: 0;
         font-size: 16px;
+        padding: 6px 12px;
 
         div {
-          margin-right: 12px;
           margin-bottom: 9px;
 
           label {
@@ -115,8 +119,6 @@ body {
           }
 
           input {
-            height: 16px;
-            width: 120px;
             border: 1px solid #ccc;
           }
 
@@ -125,11 +127,18 @@ body {
             color: white;
             border: 0;
             cursor: pointer;
+            font-size: 14px;
           }
         }
       }
     }
   }
+}
+
+.errors {
+  list-style-type: none;
+  text-align: left;
+  padding: 0;
 }
 
 footer {
