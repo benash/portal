@@ -114,7 +114,6 @@ FooterView = Mn.LayoutView.extend
   template: HandlebarsTemplates['footer']
 
 UnauthenticatedView = Mn.LayoutView.extend
-  className: 'unauthenticated-view-container'
   template: HandlebarsTemplates['unauthenticated']
 
   regions:

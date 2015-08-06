@@ -5,13 +5,17 @@ $gth-light-grey: #d7d7d7;
 $gth-medium-grey: #b7b7b7;
 $gth-dark-grey: #959595;
 
+$gth-font-family: 'Open Sans', sans-serif;
+$gth-alt-font-family: 'Sanchez', serif;
+
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $gth-font-family;
 }
 
-.unauthenticated-view-container {
-  max-width: 640px;
-  margin: 0 auto;
+.container {
+  max-width: 980px;
+  margin: auto;
+  padding: 0 20px;
 }
 
 .signin {
@@ -65,14 +69,15 @@ body {
 }
 
 .box {
-  background-image: url(image_path('background.jpg'));
+  background-image: url(image_path('background_4.png'));
+  background-size: cover;
   padding: 20px 30px;
   text-align: center;
   margin-bottom: 30px;
 
   .intro-text {
     color: white;
-    font-family: 'Sanchez', serif;
+    font-family: $gth-alt-font-family;
     font-size: 27px;
     margin-bottom: 14px;
   }
