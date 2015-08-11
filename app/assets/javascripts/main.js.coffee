@@ -115,6 +115,7 @@ FooterView = Mn.LayoutView.extend
 
 UnauthenticatedView = Mn.LayoutView.extend
   template: HandlebarsTemplates['unauthenticated']
+  className: 'app-unauthenticated-container'
 
   regions:
     'signup': '.app-signup-region'
