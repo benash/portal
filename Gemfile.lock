@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/doabit/semantic-ui-sass.git
+  revision: 867150f9380e9793b5c9e054746442ff6bf1b934
+  specs:
+    semantic-ui-sass (2.0.7.0)
+      sass (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -122,7 +129,6 @@ GEM
       rails-assets-backbone.wreqr (>= 1.0.0, < 2)
       rails-assets-jquery
       rails-assets-underscore (>= 1.4.4, < 1.6.1)
-    rails-assets-normalize.css (3.0.3)
     rails-assets-underscore (1.6.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -208,10 +214,10 @@ DEPENDENCIES
   puma
   rails (= 4.2.1)
   rails-assets-marionette!
-  rails-assets-normalize.css!
   rails_12factor
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  semantic-ui-sass!
   slim-rails
   spring
   turbolinks

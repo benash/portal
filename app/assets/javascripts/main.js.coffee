@@ -30,107 +30,90 @@ ErrorView = Mn.ItemView.extend
   template: HandlebarsTemplates['error']
 
 SignupView = Mn.LayoutView.extend
-  className: 'box'
-  template: HandlebarsTemplates['signup']
-
-  events:
-    'submit form': 'signup'
-
-  regions:
-    'error': '.error-region'
-
-  initialize: ->
-    @model = new UserRegistration()
-    @modelBinder = new Backbone.ModelBinder()
-
-  onRender: ->
-    @modelBinder.bind(@model, @el)
-
-  displayErrors: (errors) ->
-    errorList = new ErrorList(errors: errors)
-    errorView = new ErrorView(model: errorList)
-    @showChildView('error', errorView)
-
-  signup: (e) ->
-    e.preventDefault()
-
-    @model.save @model.attributes,
-      success: (userSession, response) ->
-        vent.trigger('signed-in', response)
-
-      error: (userSession, response) =>
-        result = $.parseJSON(response.responseText)
-        @displayErrors(result.errors)
 
 UserSession = Backbone.Model.extend
-  url: '/users/sign_in',
+  url: '/users/sign_in'
 
   toJSON: ->
     user: @attributes
 
   defaults:
-    'email': '',
+    'email': ''
     'password': ''
 
-SigninView = Mn.LayoutView.extend
-  tagName: 'form'
-  className: 'signin app-signin'
-
-  template: HandlebarsTemplates['signin']
+DesktopView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['desktop']
+  className: 'app-desktop-container desktop-container'
 
   events:
-    'submit': 'signin'
+    'submit .app-signin': 'signin'
+    'submit .app-signup': 'signup'
 
   regions:
-    'error': '.error-region'
+    'signin-error': '.app-signin .app-error-region'
+    'signup-error': '.app-signup .app-error-region'
 
   initialize: ->
-    @model = new UserSession()
-    @modelBinder = new Backbone.ModelBinder()
+    window.signupModel = @signupModel = new UserRegistration()
+    window.signupBinder = @signupBinder = new Backbone.ModelBinder()
+
+    @signinModel = new UserSession()
+    @signinBinder = new Backbone.ModelBinder()
 
   onRender: ->
-    @modelBinder.bind(@model, @el)
+    @signupBinder.bind(@signupModel, @$('.app-signup'))
+    @signinBinder.bind(@signinModel, @$('.app-signin'))
 
-  displayErrors: (errors) ->
+  displaySigninErrors: (errors) ->
     errorList = new ErrorList(errors: errors)
     errorView = new ErrorView(model: errorList)
-    @showChildView('error', errorView)
+    @showChildView('signin-error', errorView)
 
   signin: (e) ->
     e.preventDefault()
 
-    @model.save @model.attributes,
+    @signinModel.save @signinModel.attributes,
       success: (userSession, response) ->
         vent.trigger('signed-in', response)
 
       error: (userSession, response) =>
         result = $.parseJSON(response.responseText)
-        @displayErrors(result.errors)
+        @displaySigninErrors(result.errors)
 
-FooterView = Mn.LayoutView.extend
+  displaySignupErrors: (errors) ->
+    errorList = new ErrorList(errors: errors)
+    errorView = new ErrorView(model: errorList)
+    @showChildView('signup-error', errorView)
 
-  tagName: 'footer'
+  signup: (e) ->
+    e.preventDefault()
 
-  template: HandlebarsTemplates['footer']
+    @signupModel.save @signupModel.attributes,
+      success: (userSession, response) ->
+        vent.trigger('signed-in', response)
+
+      error: (userSession, response) =>
+        result = $.parseJSON(response.responseText)
+        @displaySignupErrors(result.errors)
+
+MobileView = Mn.ItemView.extend
+  template: HandlebarsTemplates['mobile']
+  className: 'app-mobile-container mobile-container'
+
+  onAttach: ->
+    @$('.menu .item').tab()
 
 UnauthenticatedView = Mn.LayoutView.extend
   template: HandlebarsTemplates['unauthenticated']
   className: 'app-unauthenticated-container'
 
   regions:
-    'signup': '.app-signup-region'
-    'signin': '.app-signin-region'
-    'footer': '.app-footer-region'
+    desktop: '.app-desktop-region'
+    mobile: '.app-mobile-region'
 
   onRender: ->
-    @showChildView('signup', new SignupView())
-    @showChildView('signin', new SigninView())
-    @showChildView('footer', new FooterView())
-
-RootView = Mn.LayoutView.extend
-  template: HandlebarsTemplates['root']
-  regions:
-    'main': '.app-main-region'
+    @showChildView('desktop', new DesktopView())
+    @showChildView('mobile', new MobileView())
 
 MainView = Mn.LayoutView.extend
   template: HandlebarsTemplates['main']
@@ -151,8 +134,12 @@ MainView = Mn.LayoutView.extend
       success: (userSession, response) ->
         vent.trigger('signed-out')
 
-ready = ->
+RootView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['root']
+  regions:
+    'main': '.app-main-region'
 
+runApp = ->
   window.app = new Mn.Application()
 
   app.on 'start', ->
@@ -168,5 +155,5 @@ ready = ->
   else
     vent.trigger('signed-out')
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).ready(runApp)
+$(document).on('page:load', runApp)

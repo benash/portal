@@ -1,3 +1,5 @@
+@import 'semantic-ui';
+
 $gth-blue: #00acc5;
 $gth-orange: #cf5800;
 $gth-light-orange: #e6ac87;
@@ -8,144 +10,156 @@ $gth-dark-grey: #959595;
 $gth-font-family: 'Open Sans', sans-serif;
 $gth-alt-font-family: 'Sanchez', serif;
 
+@media all and (max-width: 767px) {
+  .desktop-container {
+    display: none;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .mobile-container {
+    display: none;
+  }
+}
+
 body {
   font-family: $gth-font-family;
 
   .container {
+    padding: 10px 20px;
+  }
+
+  header {
+    height: 75px;
+    margin-bottom: 12px;
+  }
+
+  .logo {
+    height: 100%;
+  }
+
+  input, button {
+    display: block;
+    padding: .5em .6em;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+  }
+
+  input {
+    border: 1px solid #ccc;
+    margin: auto auto 6px;
+
+    &:focus {
+      outline-color: $gth-light-orange;
+    }
+  }
+
+  button {
+    background-color: $gth-blue;
+    color: white;
+    border: 0;
+    cursor: pointer;
+  }
+
+  footer {
     text-align: center;
-    max-width: 482px;
-    margin: auto;
-    padding: 0 20px;
+    color: $gth-dark-grey;
+    font-size: 18px;
+    font-weight: lighter;
+  }
+}
+
+.mobile-container {
+
+  input, button {
+    width: 100%;
+  }
+
+  .auth-tabs {
+    margin-bottom: 12px;
+  }
+}
+
+.desktop-container {
+  max-width: 980px;
+  margin: auto;
+
+  header {
+
+    position: relative;
 
     .logo {
-      max-width: 150px;
-    }
-
-    fieldset {
-      border: 0;
-
-      input, button {
-        box-shadow: inset 0 1px 3px #ddd;
-        padding: .5em .6em;
-        border-radius: 4px;
-      }
-
-      input {
-        border: 1px solid #ccc;
-        &:focus {
-          outline-color: $gth-light-orange;
-        }
-      }
-
-      button {
-        background-color: $gth-blue;
-        color: white;
-        border: 0;
-        cursor: pointer;
-      }
-    }
-
-    footer {
-      color: $gth-dark-grey;
-      font-size: 18px;
-      font-weight: lighter;
-      max-width: 482px;
-      margin: 0 auto;
-    }
-  }
-}
-
-@media all and (max-width: 42em) {
-  input {
-    display: block;
-    margin: auto;
-    margin-bottom: 6px;
-  }
-}
-
-@media all and (min-width: 42em) {
-  body {
-
-    .container {
-      max-width: 980px;
+      float: left;
     }
 
     .signin {
-      height: 60px;
-      margin-bottom: 12px;
 
-      .logo {
-        float: left;
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+
+      input {
+        margin-right: 12px;
       }
 
-      fieldset {
-        float: right;
-        margin-top: 16px;
-
-        input {
-          margin-right: 12px;
-        }
+      input, button {
+        display: inline;
       }
     }
+  }
 
-    .box {
-      background-image: url(image_path('background_4.png'));
-      background-size: cover;
-      padding: 20px 30px;
+  .box {
+    background-image: url(image_path('background_4.png'));
+    background-size: cover;
+    padding: 20px 30px;
+    text-align: center;
+    margin-bottom: 20px;
+
+    .intro-text {
+      color: white;
+      font-family: $gth-alt-font-family;
+      font-size: 27px;
+    }
+
+    .inner-box {
+      display: inline-block;
       text-align: center;
-      margin-bottom: 20px;
+      background-color: rgba(200, 200, 200, 0.6);
+      border-radius: 6px;
 
-      .intro-text {
+      h3 {
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        background-color: $gth-blue;
         color: white;
-        font-family: $gth-alt-font-family;
-        font-size: 27px;
-        margin-bottom: 14px;
+        font-weight: normal;
+        font-size: 19px;
+        padding: 3px;
+        margin: 0 0 6px;
       }
 
-      .inner-box {
-        display: inline-block;
-        text-align: center;
-        background-color: rgba(200, 200, 200, 0.6);
-        border-radius: 6px;
+      .signup {
 
-        h3 {
-          border-top-left-radius: 6px;
-          border-top-right-radius: 6px;
-          background-color: $gth-blue;
-          color: white;
-          font-weight: normal;
-          font-size: 19px;
-          padding: 3px;
-          margin: 0;
-          margin-bottom: 6px;
-        }
+        width: 300px;
+        padding: 6px 12px;
 
-        .signup {
-
-          width: 300px;
-
-          fieldset {
-            border: 0;
-            padding: 6px 12px;
-
-            input {
-              margin-bottom: 9px;
-            }
-
-            button {
-              background-color: $gth-orange;
-              display: block;
-              margin: auto;
-            }
-          }
+        button {
+          background-color: $gth-orange;
+          display: block;
+          margin: auto;
         }
       }
     }
+  }
 
-    .errors {
-      list-style-type: none;
-      text-align: left;
-      padding: 0;
-    }
+  .errors {
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+  }
+
+  footer {
+    max-width: 760px;
+    margin: 0 auto;
   }
 }
