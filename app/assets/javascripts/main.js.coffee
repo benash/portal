@@ -118,6 +118,32 @@ UnauthenticatedView = Mn.LayoutView.extend
   className: 'app-unauthenticated-container'
 
   regions:
+    desktop: '.app-desktop-region'
+    mobile: '.app-mobile-region'
+
+  onRender: ->
+    @showChildView('desktop', new DesktopView())
+    @showChildView('mobile', new MobileView())
+
+DesktopView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['desktop']
+  className: 'app-desktop-container desktop-container'
+
+  regions:
+    'signup': '.app-signup-region'
+    'signin': '.app-signin-region'
+    'footer': '.app-footer-region'
+
+  onRender: ->
+    @showChildView('signup', new SignupView())
+    @showChildView('signin', new SigninView())
+    @showChildView('footer', new FooterView())
+
+MobileView = Mn.LayoutView.extend
+  template: HandlebarsTemplates['mobile']
+  className: 'app-mobile-container mobile-container'
+
+  regions:
     'signup': '.app-signup-region'
     'signin': '.app-signin-region'
     'footer': '.app-footer-region'

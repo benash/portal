@@ -55,7 +55,11 @@ body {
   }
 }
 
-@media all and (max-width: 42em) {
+@media all and (max-width: 767px) {
+  .desktop-container {
+    display: none;
+  }
+
   input {
     display: block;
     margin: auto;
@@ -63,7 +67,11 @@ body {
   }
 }
 
-@media all and (min-width: 42em) {
+@media all and (min-width: 768px) {
+  .mobile-container {
+    display: none;
+  }
+
   body {
 
     .container {
