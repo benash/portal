@@ -6,7 +6,6 @@ gem 'bundler', '>= 1.8.4'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-marionette'
-  gem 'rails-assets-normalize.css'
 end
 
 gem 'slim-rails'
@@ -18,6 +17,7 @@ gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'rails', '4.2.1'
 gem 'sass-rails', '~> 5.0'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'

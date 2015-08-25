@@ -20,5 +20,6 @@
 //= require backbone.wreqr
 //= require marionette
 //= require handlebars.runtime
+//= require semantic-ui
 //= require_tree ./templates
 //= require_tree .
