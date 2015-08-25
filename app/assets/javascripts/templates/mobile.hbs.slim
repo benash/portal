@@ -1,3 +1,24 @@
-.app-signin-region
-.app-signup-region
-.app-footer-region
+form.signin.app-signin
+  = image_tag('logo_horizontal', class: 'logo')
+.signup-region
+  .box
+    p.intro-text
+      | Human Trafficking is a form of modern-day slavery where people profit from the control and exploitation of others.
+    .inner-box
+      .ui.top.attached.tabular.menu
+        a.item.active data-tab='first'  Register
+        a.item data-tab='second'  Sign in
+      .ui.bottom.attached.tab.segment.active data-tab='first'
+        fieldset
+          input#email name='email' placeholder='Email' required='required' type='email'
+          input#password name='password' placeholder='Password' required='required' type='password'
+          input#password_confirmation name='password_confirmation' placeholder='Retype password' required='required' type='password'
+          button.register type='submit' Register
+          .error-region
+      .ui.bottom.attached.tab.segment data-tab='second'
+        fieldset
+          input#email name='email' placeholder='Email' required='required' type='email'
+          input#password name='password' placeholder='Password' required='required' type='password'
+          button type='submit'  Sign in
+          .error-region
+footer The Gateway to Hope Portal is where groups, organizations, and individuals can go to collaborate and join efforts in their area to fight the evils of Human Trafficking.

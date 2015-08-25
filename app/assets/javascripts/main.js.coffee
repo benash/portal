@@ -139,19 +139,9 @@ DesktopView = Mn.LayoutView.extend
     @showChildView('signin', new SigninView())
     @showChildView('footer', new FooterView())
 
-MobileView = Mn.LayoutView.extend
+MobileView = Mn.ItemView.extend
   template: HandlebarsTemplates['mobile']
   className: 'app-mobile-container mobile-container'
-
-  regions:
-    'signup': '.app-signup-region'
-    'signin': '.app-signin-region'
-    'footer': '.app-footer-region'
-
-  onRender: ->
-    @showChildView('signup', new SignupView())
-    @showChildView('signin', new SigninView())
-    @showChildView('footer', new FooterView())
 
 RootView = Mn.LayoutView.extend
   template: HandlebarsTemplates['root']
