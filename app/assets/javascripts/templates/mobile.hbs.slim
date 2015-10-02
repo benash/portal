@@ -5,13 +5,13 @@ header
     a.item.active data-tab='sign-in' Sign in
     a.item data-tab='register' Register
   .ui.bottom.attached.tab.segment.active data-tab='sign-in'
-    form
+    form.app-signin
       input#email name='email' placeholder='Email' required='required' type='email'
       input#password name='password' placeholder='Password' required='required' type='password'
       button type='submit'  Sign in
       .error-region
   .ui.bottom.attached.tab.segment data-tab='register'
-    form
+    form.app-signup
       input#email name='email' placeholder='Email' required='required' type='email'
       input#password name='password' placeholder='Password' required='required' type='password'
       input#password_confirmation name='password_confirmation' placeholder='Retype password' required='required' type='password'

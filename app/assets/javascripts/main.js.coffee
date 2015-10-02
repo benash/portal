@@ -5,9 +5,9 @@ UserRegistration = Backbone.Model.extend
   url: '/users'
 
   defaults:
-    'email': ''
-    'password': ''
-    'password_confirmation': ''
+    email: ''
+    password: ''
+    password_confirmation: ''
 
   toJSON: ->
     user: @attributes
@@ -38,13 +38,10 @@ UserSession = Backbone.Model.extend
     user: @attributes
 
   defaults:
-    'email': ''
-    'password': ''
+    email: ''
+    password: ''
 
-DesktopView = Mn.LayoutView.extend
-  template: HandlebarsTemplates['desktop']
-  className: 'app-desktop-container desktop-container'
-
+AbstractView = Mn.LayoutView.extend
   events:
     'submit .app-signin': 'signin'
     'submit .app-signup': 'signup'
@@ -96,7 +93,11 @@ DesktopView = Mn.LayoutView.extend
         result = $.parseJSON(response.responseText)
         @displaySignupErrors(result.errors)
 
-MobileView = Mn.ItemView.extend
+DesktopView = AbstractView.extend
+  template: HandlebarsTemplates['desktop']
+  className: 'app-desktop-container desktop-container'
+
+MobileView = AbstractView.extend
   template: HandlebarsTemplates['mobile']
   className: 'app-mobile-container mobile-container'
 
@@ -137,7 +138,7 @@ MainView = Mn.LayoutView.extend
 RootView = Mn.LayoutView.extend
   template: HandlebarsTemplates['root']
   regions:
-    'main': '.app-main-region'
+    main: '.app-main-region'
 
 runApp = ->
   window.app = new Mn.Application()
